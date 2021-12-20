@@ -1,0 +1,29 @@
+﻿Create Plugin
+1. Create plugin project, MyTVO.Plugin.Widgets.xxx
+2. Open .csproj, change OUTPUTPATH
+3. Copy plugin.json, modify
+4. Create plugin class, extend BasePlugin, 
+5. Create Configure.cshtml & _ViewImports.cshtml in View folder
+6. Create Controller folder, create controller class, create Configure method
+
+Go Local Plugin, install and restart application
+
+Create Widget - super extension Plugin
+7. Create ViewComponent class, extends NopViewComponent, create InvokeAsync(), returns custom view
+8. Extend plugin class with IWidgetPlugin, add GetWidgetZonesAsync(), 
+Find out which widget to use write in GetWidgetZonesAsync)
+9. Create Factories folder, create Factory class & interface. Factory for view component
+10. Create Infrastructure folder, create Registrar class, extends IDependencyRegistrar, register factories.
+
+Go Widgets, set active
+
+11. Submenu model in Factory, register RouteName
+12. Create RouteProvider class in Infrastructure folder.
+13. Create necessary ActionResult methods in Controller.
+
+Localization:
+In Administration > Languages.
+Stored in Database.
+
+KeyNotes:
+1. Create plugin name with "MyTVO.xxx...."

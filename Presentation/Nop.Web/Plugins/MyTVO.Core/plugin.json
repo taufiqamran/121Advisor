@@ -1,0 +1,11 @@
+﻿{
+  "Group": "MyTVO",
+  "FriendlyName": "MyTVO Core",
+  "SystemName": "MyTVO.Core",
+  "Version": "1.03",
+  "SupportedVersions": [ "4.40" ],
+  "Author": "SeeSharp Solutions Sdn Bhd, Azrina Wong",
+  "DisplayOrder": 1,
+  "FileName": "MyTVO.Core.dll",
+  "Description": "Core framework for MyTVO"
+}

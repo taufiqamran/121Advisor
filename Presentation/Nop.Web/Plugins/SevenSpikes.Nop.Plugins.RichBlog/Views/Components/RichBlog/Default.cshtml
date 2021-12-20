@@ -1,0 +1,22 @@
+﻿@model Dictionary<string, object>
+@{
+    var supportRtl = await this.ShouldUseRtlThemeAsync();
+    var themeName = await ThemeHelper.GetPluginThemeAsync(Plugin.FolderName);
+
+    //SS AW - Added slick.css
+    Html.AddCssFileParts("~/Plugins/SevenSpikes.Nop.Plugins.RichBlog/Styles/slick.css");
+    Html.AddCssFileParts("~/Plugins/SevenSpikes.Nop.Plugins.RichBlog/Themes/" + themeName + "/Content/RichBlog.css");
+    if (supportRtl)
+    {
+        Html.AddCssFileParts("~/Plugins/SevenSpikes.Nop.Plugins.RichBlog/Themes/" + themeName + "/Content/RichBlog.rtl.css");
+    }
+
+    //SS AW - Added relevant js for carousel
+    Html.AddScriptParts(ResourceLocation.Footer, "~/Plugins/SevenSpikes.Core/Scripts/slick-slider-1.6.0.min.js");
+    Html.AddScriptParts(ResourceLocation.Footer, "~/Plugins/SevenSpikes.Nop.Plugins.RichBlog/Scripts/RichBlogCustom.js");
+}
+
+@foreach (var viewComponent in Model)
+{
+    @await Component.InvokeAsync(viewComponent.Key, viewComponent.Value)
+}

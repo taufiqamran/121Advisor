@@ -1,0 +1,60 @@
+
+@media all and (min-width: 1281px) {
+
+.master-column-wrapper {
+	width: 1200px;
+}
+.inputs label {
+    width: 276px;
+}
+.center-1 .inputs label {
+    width: 414px;
+}
+.center-2 {
+    width: 921px;
+}
+.home .topic-block {
+	width: 1200px;
+}
+.home-page-polls {
+	width: 1220px;
+}
+.header {
+	width: 1200px;
+}
+.headerMenuParent {
+    width: 960px;
+}
+.home-page .ui-tabs {
+	width: 1200px;
+}
+.footer-upper .center,
+.footer-middle .center,
+.footer-lower .center {
+	width: 1220px;
+}
+.home-page-category-grid .item-grid,
+.home-page .product-grid {
+	width: 1220px;
+}
+.product-details-page .overview {
+    width: 52.5%;
+}
+.gallery .picture-thumbs .thumb-item {
+	width: 120px;
+	height: 120px;
+}
+.cart-collaterals {
+	width: 850px;
+}
+.cart-collaterals .deals > div {
+	width: 300px;
+}
+.cart-collaterals .estimate-shipping-button {
+    margin-top: 14px;
+}
+.cart-footer .totals {
+	width: 313px;
+}
+
+}

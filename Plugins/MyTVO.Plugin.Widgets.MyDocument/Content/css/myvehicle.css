@@ -1,0 +1,83 @@
+﻿.addnewvehicle {
+    background-color: white;
+    border: dashed;
+    border-radius: 9px;
+    color: grey;
+    padding: 15px 32px;
+    text-align: center;
+    font-size: 16px;
+    margin: 4px 2px;
+    width: 100%;
+    height: 80px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto 25% auto auto auto auto auto 10px;
+    grid-template-rows: 70px;
+    grid-gap: 10px;
+    padding: 10px;
+    border: 1px solid #ccc !important;
+    border-radius: 10px;
+}
+
+    .grid-container > div {
+        text-align: left;
+        font-size: 16px;
+    }
+
+.column {
+    float: left;
+    padding: 10px; /* Should be removed. Only for demonstration */
+}
+
+.button {
+    display: inline-block;
+    text-align: center;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    width: 100px;
+    border: 1px solid transparent;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-view {
+    color: #fff;
+    background-color: purple;
+    border-color: #E6E6FA;
+}
+
+@media screen and (max-width: 600px) {
+    .grid-container {
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: 70px;
+        grid-gap: 10px;
+        padding: 10px;
+        border: 1px solid #ccc !important;
+    }
+}
+
+.d-none {
+    display: none !important;
+}
+
+/*just added*/
+.card-body input[type="date"] {
+    border: none;
+    background-color: white;
+    width: 100%;
+}
+
+.card-body select#mata {
+    border: none;
+    background-color: white;
+    width: 100%;
+}

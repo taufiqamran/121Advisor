@@ -1,0 +1,37 @@
+﻿
+    /*SS AW - Custom CSS*/
+.button-3 {
+    border: none;
+    background-color: #ccc;
+    padding: 10px 20px;
+    font: normal 15px 'eurostile';
+    color: #fff;
+}
+.button-3:hover {
+    opacity: 0.8;
+}
+
+.modal-title-font {
+    font: normal 24px/36px 'eurostile';
+}
+
+.border-none {
+    border: none;
+}
+
+.img-upload {
+    background-color: yellow;
+    height: 100px;
+}
+
+.card-body label {
+    margin-bottom: 0.5rem !important;
+}
+
+.card-body input[type="text"],
+.card-body select {
+    border: none;
+    background-color: white;
+    width: 100%;
+}
+

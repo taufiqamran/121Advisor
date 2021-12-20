@@ -1,0 +1,22 @@
+<div class="header">
+    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HeaderBefore })
+    <div class="header-links-wrapper">
+        @await Component.InvokeAsync("HeaderLinks")
+
+        <div class="header-selectors-wrapper">
+            @await Component.InvokeAsync("TaxTypeSelector")
+            @await Component.InvokeAsync("CurrencySelector")
+            @await Component.InvokeAsync("LanguageSelector")
+            @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HeaderSelectors })
+
+            <div class="search-box-reference"></div>
+
+        </div>
+    </div>
+    
+    <div class="search-box store-search-box">
+    	@await Component.InvokeAsync("SearchBox")
+    </div>
+
+    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HeaderAfter })
+</div>

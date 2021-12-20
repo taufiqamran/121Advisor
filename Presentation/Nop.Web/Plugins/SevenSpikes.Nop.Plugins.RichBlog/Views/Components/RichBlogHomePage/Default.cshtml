@@ -1,0 +1,157 @@
+﻿@model IList<BlogPostModel7Spikes>
+@inject IViewComponentSelector viewComponentSelector
+@*SS AW - Added 3 sections of blog in homepage*@
+<div id="latestPromo" class="jCarouselMainWrapper rich-blog-homepage">
+    <div class="nop-jcarousel home-page-product-grid">
+        <div class="title carousel-title">
+            @*<strong>@T("SevenSpikes.RichBlog.Public.LatestFromBlog")</strong>*@
+            <a href="@Url.RouteUrl("BlogByCategory", new { SeName = "promotion" })"><strong>Latest Promotion</strong></a>
+        </div>
+        <div class="blog-posts">
+            <div class="slick-carousel item-grid" data-slick='{"rtl":false,"infinite":true,"slidesToScroll":1,"dots":false,"speed":300,"autoplay":true,"autoplaySpeed":5000,"arrows":true,"appendArrows":"#latestPromo .carousel-title","cssEase":"linear","respondTo":"slider","edgeFriction":0.05,"initialSlide":0,"pauseOnHover":true,"draggable":false,"prevArrow":"<button type=\"button\" data-role=\"none\" class=\"slick-prev\" aria-label=\"Previous\" tabindex=\"0\" role=\"button\">Previous</button>","nextArrow":"<button type=\"button\" data-role=\"none\" class=\"slick-next\" aria-label=\"Next\" tabindex=\"0\" role=\"button\">Next</button>","responsive":[{"breakpoint":10000,"settings":{"slidesToShow":4}},{"breakpoint":700,"settings":{"slidesToShow":3}},{"breakpoint":699,"settings":{"slidesToShow":2}},{"breakpoint":463,"settings":{"slidesToShow":1}}],"lazyLoad":"ondemand"}' data-numberOfVisibleItems="4">
+                @foreach (var post in Model)
+                {
+                    if (post.Tags.Contains("promotion"))
+                    {
+                        <div class="carousel-item">
+                            <div class="item-box">
+                                <div class="product-item">
+                                    <div class="picture">
+                                        @if (!string.IsNullOrWhiteSpace(post.HomePagePictureUrl))
+                                        {
+                                            <a href="@Url.RouteUrl("BlogPost", new { SeName = post.SeName })">
+                                                @if (viewComponentSelector.SelectComponent("LazyLoadImage") != null)
+                                                {
+                                                    @await Component.InvokeAsync("LazyLoadImage", new (string Key, string Value)[]
+                                         {
+                                                        ("src", post.HomePagePictureUrl),
+                                                        ("alt", post.Title),
+                                                        ("title", post.Title)
+                                         })
+                                                }
+                                                else
+                                                {
+                                                    <img src="@post.HomePagePictureUrl" alt="@post.Title" title="@post.Title" />
+                                                }
+                                            </a>
+                                        }
+
+                                    </div>
+                                    <div class="details">
+                                        <h2 class="product-title">
+                                            <a href="@Url.RouteUrl("BlogPost", new { SeName = post.SeName })">@post.Title</a>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="trending" class="jCarouselMainWrapper rich-blog-homepage">
+    <div class="nop-jcarousel home-page-product-grid">
+        <div class="title carousel-title">
+            @*<strong>@T("SevenSpikes.RichBlog.Public.LatestFromBlog")</strong>*@
+            <a href="@Url.RouteUrl("BlogByCategory", new { SeName = "trending" })"><strong>Trending Now</strong></a>
+        </div>
+        <div class="blog-posts">
+            <div class="slick-carousel item-grid" data-slick='{"rtl":false,"infinite":true,"slidesToScroll":1,"dots":false,"speed":300,"autoplay":true,"autoplaySpeed":5000,"arrows":true,"appendArrows":"#trending .carousel-title","cssEase":"linear","respondTo":"slider","edgeFriction":0.05,"initialSlide":0,"pauseOnHover":true,"draggable":false,"prevArrow":"<button type=\"button\" data-role=\"none\" class=\"slick-prev\" aria-label=\"Previous\" tabindex=\"0\" role=\"button\">Previous</button>","nextArrow":"<button type=\"button\" data-role=\"none\" class=\"slick-next\" aria-label=\"Next\" tabindex=\"0\" role=\"button\">Next</button>","responsive":[{"breakpoint":10000,"settings":{"slidesToShow":4}},{"breakpoint":700,"settings":{"slidesToShow":3}},{"breakpoint":699,"settings":{"slidesToShow":2}},{"breakpoint":463,"settings":{"slidesToShow":1}}],"lazyLoad":"ondemand"}' data-numberOfVisibleItems="4">
+                @foreach (var post in Model)
+                {
+                    if (post.Tags.Contains("trending"))
+                    {
+                        <div class="carousel-item">
+                            <div class="item-box">
+                                <div class="product-item">
+                                    <div class="picture">
+                                        @if (!string.IsNullOrWhiteSpace(post.HomePagePictureUrl))
+                                        {
+                                            <a href="@Url.RouteUrl("BlogPost", new { SeName = post.SeName })">
+                                                @if (viewComponentSelector.SelectComponent("LazyLoadImage") != null)
+                                                {
+                                                    @await Component.InvokeAsync("LazyLoadImage", new (string Key, string Value)[]
+                                         {
+                                                        ("src", post.HomePagePictureUrl),
+                                                        ("alt", post.Title),
+                                                        ("title", post.Title)
+                                         })
+                                                }
+                                                else
+                                                {
+                                                    <img src="@post.HomePagePictureUrl" alt="@post.Title" title="@post.Title" />
+                                                }
+                                            </a>
+                                        }
+
+                                    </div>
+                                    <div class="details">
+                                        <h2 class="product-title">
+                                            <a href="@Url.RouteUrl("BlogPost", new { SeName = post.SeName })">@post.Title</a>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="latestNews" class="jCarouselMainWrapper rich-blog-homepage">
+    <div class="nop-jcarousel home-page-product-grid">
+        <div class="title carousel-title">
+            @*<strong>@T("SevenSpikes.RichBlog.Public.LatestFromBlog")</strong>*@
+            <a href="@Url.RouteUrl("BlogByCategory", new { SeName = "news" })"><strong>Latest News</strong></a>
+        </div>
+        <div class="blog-posts">
+            <div class="slick-carousel item-grid" data-slick='{"rtl":false,"infinite":true,"slidesToScroll":1,"dots":false,"speed":300,"autoplay":true,"autoplaySpeed":5000,"arrows":true,"appendArrows":"#latestNews .carousel-title","cssEase":"linear","respondTo":"slider","edgeFriction":0.05,"initialSlide":0,"pauseOnHover":true,"draggable":false,"prevArrow":"<button type=\"button\" data-role=\"none\" class=\"slick-prev\" aria-label=\"Previous\" tabindex=\"0\" role=\"button\">Previous</button>","nextArrow":"<button type=\"button\" data-role=\"none\" class=\"slick-next\" aria-label=\"Next\" tabindex=\"0\" role=\"button\">Next</button>","responsive":[{"breakpoint":10000,"settings":{"slidesToShow":4}},{"breakpoint":700,"settings":{"slidesToShow":3}},{"breakpoint":699,"settings":{"slidesToShow":2}},{"breakpoint":463,"settings":{"slidesToShow":1}}],"lazyLoad":"ondemand"}' data-numberOfVisibleItems="4">
+                @foreach (var post in Model)
+                {
+                    if (post.Tags.Contains("news"))
+                    {
+                        <div class="carousel-item">
+                            <div class="item-box">
+                                <div class="product-item">
+                                    <div class="picture">
+                                        @if (!string.IsNullOrWhiteSpace(post.HomePagePictureUrl))
+                                        {
+                                            <a href="@post.BodyOverview.Replace("...", "")" target="_blank">
+                                                @if (viewComponentSelector.SelectComponent("LazyLoadImage") != null)
+                                                {
+                                                    @await Component.InvokeAsync("LazyLoadImage", new (string Key, string Value)[]
+                                         {
+                                                        ("src", post.HomePagePictureUrl),
+                                                        ("alt", post.Title),
+                                                        ("title", post.Title)
+                                         })
+                                                }
+                                                else
+                                                {
+                                                    <img src="@post.HomePagePictureUrl" alt="@post.Title" title="@post.Title" />
+                                                }
+                                            </a>
+                                        }
+
+                                    </div>
+                                    <div class="details">
+                                        <h2 class="product-title">
+                                            <a href="@Url.RouteUrl("BlogPost", new { SeName = post.SeName })">@post.Title</a>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+﻿{
+  "Group": "MyTVO",
+  "FriendlyName": "MyTVO MyAccount",
+  "SystemName": "MyTVO.MyAccount",
+  "Version": "1.01",
+  "SupportedVersions": [ "4.40" ],
+  "Author": "SeeSharp Solutions Sdn Bhd, Azrina Wong",
+  "DisplayOrder": 1,
+  "FileName": "MyTVO.Plugin.Widgets.MyAccount.dll",
+  "Description": "Add MyAccount module"
+}

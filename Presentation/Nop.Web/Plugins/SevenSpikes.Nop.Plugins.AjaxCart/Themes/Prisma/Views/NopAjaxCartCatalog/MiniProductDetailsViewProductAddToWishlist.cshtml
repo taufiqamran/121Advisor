@@ -1,0 +1,27 @@
+﻿@model Nop.Web.Models.Catalog.ProductDetailsModel.AddToCartModel
+
+<div class="add-to-cart">
+    <label asp-for="EnteredQuantity" asp-postfix=":" class="qty-label"></label>
+
+    @if (Model.AllowedQuantities.Count > 0)
+    {
+    <div class="qty-wrapper">
+        <select asp-for="EnteredQuantity" asp-items="Model.AllowedQuantities" class="qty-dropdown"></select>
+    </div>
+    }
+    else
+    {
+        // asp-for is not binding the correct value to the input
+        var inputElementName = $"addtocart_{Model.ProductId}.EnteredQuantity";
+        <div class="qty-wrapper">
+            <span class="decrease">decrease</span>
+	        <input class="qty-input" type="text" id="@inputElementName" name="@inputElementName" value="@Model.EnteredQuantity" />
+            <span class="increase">increase</span>
+        </div>
+    }
+
+    <div class="btn-wrapper">
+        <button type="button" id="add-to-cart-button-@Model.ProductId" value="@T("shoppingcart.addtowishlist")" class="button-1 add-to-cart-button miniProductDetailsViewAddToWishlistButton miniProductDetailsViewAddToCartButton" data-productid="@Model.ProductId"><span>@T("shoppingcart.addtowishlist")</span></button>
+    </div>
+        @Html.Hidden("addProductVariantToCartUrl", Url.Action("AddProductFromProductDetailsPageToCartAjax", "NopAjaxCartShoppingCart"))
+</div>

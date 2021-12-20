@@ -1,0 +1,60 @@
+﻿@using MyTVO.Core;
+@using MyTVO.Plugin.Widgets.MyDocument;
+@{
+    Layout = "_ColumnsTwo";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.Account").Text);
+    //file class
+    Html.AddCssFileParts($"{MyDocumentDefaults.CssPath}/myvehicle.css");
+
+    //page class
+    Html.AppendPageCssClassParts("html-account-page");
+    Html.AppendPageCssClassParts("html-customer-info-page");
+
+
+}
+
+@section left
+    {
+    @await Component.InvokeAsync("CustomerNavigation", new { selectedTabId = MyAccountNavigationEnum.MyDocument })
+}
+
+<div class="page account-page customer-info-page">
+    <div class="page-title">
+        <h1>@T("Account.MyAccount") - @T("MyTVO.mydocument")</h1>
+    </div>
+    <div class="page-body">
+        <form>
+            <div class="fieldset">
+                <div class="title">
+                    <strong>@T("mytvo.mydocument.page.title")</strong>
+                </div>
+                <h2 class="text-center">Do you own any other document?</h2>
+                <div class="doc-container">
+                    <button class="addnewvehicle">+ Add New Document</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="grid-container">
+    <div class="item1 column"><i class="fas fa-clone" style="font-size:48px;color:black;"></i></div>
+    <div class="item2 column">Insurer Name </br> MyTVO Insurance Sdn Bhd</div>
+    <div class="item3 column">Policy No </br> POL123456</div>
+    <div class="item4 column">Expiry Date </br>01/07/2022</div>
+    <div class="item5 column"><button class="button btn-success" type="button">Active</button></div>
+    <div class="item6 column"><button class="button btn-view" type="button">View</button></div>
+    <div class="item7 column"><i class="fas fa-edit" style="font-size:20px;color:black;padding:5px"></i><i class="fas fa-trash" style="font-size:20px;color:black;"></i></div>
+</div>
+</br>
+<div class="grid-container">
+    <div class="item1 column"><i class="fas fa-clone" style="font-size:48px;color:black;"></i></div>
+    <div class="item2 column">Insurer Name </br> MyTVO Insurance Sdn Bhd</div>
+    <div class="item3 column">Policy No </br> POL123456</div>
+    <div class="item4 column">Expiry Date </br> 01/07/2022</div>
+    <div class="item5 column"><button class="button btn-success" type="button">Active</button></div>
+    <div class="item6 column"><button class="button btn-view" type="button">View</button></div>
+    <div class="item7 column"><i class="fas fa-edit" style="font-size:20px;color:black;padding:5px"></i><i class="fas fa-trash" style="font-size:20px;color:black;"></i></div>
+</div>

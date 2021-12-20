@@ -1,0 +1,11 @@
+{
+  "Group": "MyTVO",
+  "FriendlyName": "MyTVO MyDocument",
+  "SystemName": "MyTVO.MyDocument",
+  "Version": "1.00",
+  "SupportedVersions": [ "4.40" ],
+  "Author": "SeeSharp Solutions Sdn Bhd, Taufiq Amran",
+  "DisplayOrder": 1,
+  "FileName": "MyTVO.Plugin.Widgets.MyDocument.dll",
+  "Description": "Add MyDocument module"
+}

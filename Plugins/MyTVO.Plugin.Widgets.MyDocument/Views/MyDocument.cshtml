@@ -1,0 +1,181 @@
+﻿@using MyTVO.Core;
+@using MyTVO.Plugin.Widgets.MyDocument;
+@{
+    Layout = "_ColumnsTwo";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.Account").Text);
+    //file class
+    Html.AddCssFileParts($"{MyDocumentDefaults.CssPath}/myvehicle.css");
+
+    Html.AddCssFileParts("~/Themes/Traction/Content/css/modal.css");
+    Html.AddCssFileParts("~/Themes/Traction/Content/css/bootstrap-extract.css");
+
+    Html.AddScriptParts(ResourceLocation.Footer, "~/Themes/Traction/Content/scripts/popper.js");
+    Html.AddScriptParts(ResourceLocation.Footer, "~/Themes/Traction/Content/scripts/bootstrap.bundle.min.js");
+    Html.AddScriptParts(ResourceLocation.Footer, $"{MyDocumentDefaults.JsPath}/mydocument.js");
+
+    //page class
+    Html.AppendPageCssClassParts("html-account-page");
+    Html.AppendPageCssClassParts("html-customer-info-page");
+
+
+}
+
+@section left
+    {
+    @await Component.InvokeAsync("CustomerNavigation", new { selectedTabId = MyAccountNavigationEnum.MyDocument })
+}
+
+<div class="page account-page customer-info-page">
+    <div class="page-title">
+        <h1>@T("Account.MyAccount") - @T("MyTVO.mydocument")</h1>
+    </div>
+    <div class="page-body">
+        <div class="fieldset">
+            <div class="title">
+                <strong>@T("mytvo.mydocument.page.title")</strong>
+            </div>
+            <h2 class="text-center">Do you own any other document?</h2>
+            <div class="doc-container">
+                <button type="button" class="addnewvehicle" data-bs-toggle="modal" data-bs-target="#addNewDocumentModal">
+                    + Add New Document
+                </button>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="row g-0 py-3">
+                            <div class="col-1">
+                                <img src="~/Plugins/MyTVO.Widgets.MyDocument/Content/images/document.png" class="img-fluid rounded-start" alt="">
+                            </div>
+                            <div class="col-3">
+                                <h5 class="card-title">Insurer Name</h5>
+                                <p class="card-text">NyTVO Insurance Sdn Bhd</p>
+                            </div>
+                            <div class="col-auto">
+                                <h5 class="card-title">Policy No</h5>
+                                <p class="card-text">POL123456</p>
+                            </div>
+                            <div class="col-auto">
+                                <h5 class="card-title">Expiring Date</h5>
+                                <p class="card-text">01/07/2022</p>
+                            </div>
+                            <div class="col-2">
+                                <button class="button btn-success" type="button">Active</button>
+                                <button class="button btn-view" type="button">View</button>
+                            </div>
+                            <div class="col-1">
+
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">This is a wider card</p>
+                            </div>
+                        </div>
+                            
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<div class="modal fade account-page" id="addNewDocumentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header border-none">
+                <h5 class="modal-title modal-title-font">Add New Document</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <form action="" enctype="multipart/form-data">
+                        <div class="row mb-3 gx-3">
+                            <div class="col-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="dropdown">
+                                            <label for="message-text" class="col-form-label">Document Type</label>
+                                            <select class="dropdown-toggle" id="mata" aria-labelledby="dropdownMenuButton1" name="cars" onchange="changeInput()">
+                                                <option class="dropdown-item" value="Insurance">Insurance Policy</option>
+                                                <option class="dropdown-item" value="Cover">Cover Note</option>
+                                                <option class="dropdown-item" value="Driving">Driving License</option>
+                                                <option class="dropdown-item" value="JPJ">JPJ Registration</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6" id="numbee">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <label for="message-text" class="col-form-label">Vehicle No</label>
+                                        <input type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3 gx-3" id="mimi">
+                            <div class="col-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <label for="message-text" class="col-form-label">Insurance Name</label>
+                                        <input type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <label for="message-text" class="col-form-label">Policy No</label>
+                                        <input type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3 gx-3" id="momo">
+                            <div class="col-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <label for="message-text" class="col-form-label">Start On.</label>
+                                        <input type="date" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <label for="message-text" class="col-form-label">Expire Date.</label>
+                                        <input type="date" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3 gx-3" id="momo">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div id="uploads">
+                                            <div id="uploadtemplate">
+                                                <label for="file1">Filename:</label>
+                                                <input type="file" name="files" id="file1" />
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>            
+            <div class="modal-footer border-none">
+                <button type="button" class="button-3" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="button-1">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

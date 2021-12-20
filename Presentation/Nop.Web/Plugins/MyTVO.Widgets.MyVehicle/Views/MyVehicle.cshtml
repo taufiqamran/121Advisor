@@ -1,0 +1,231 @@
+﻿@using MyTVO.Core;
+@using MyTVO.Plugin.Widgets.MyVehicle;
+@using MyTVO.Plugin.Widgets.MyVehicle.Models;
+
+@model MyVehicleModel
+@{
+    Layout = "_ColumnsTwo";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.Account").Text);
+    //file class
+    Html.AddCssFileParts($"{MyVehicleDefaults.CssPath}/myvehicle.css");
+    Html.AddCssFileParts($"{MyVehicleDefaults.CssPath}/image-uploader.min.css");
+    Html.AddCssFileParts("~/Themes/Traction/Content/css/modal.css");
+    Html.AddCssFileParts("~/Themes/Traction/Content/css/bootstrap-extract.css");
+
+    Html.AddScriptParts(ResourceLocation.Footer, "~/Themes/Traction/Content/scripts/popper.js");
+    Html.AddScriptParts(ResourceLocation.Footer, "~/Themes/Traction/Content/scripts/bootstrap.bundle.min.js");
+    Html.AddScriptParts(ResourceLocation.Footer, $"{MyVehicleDefaults.JsPath}/image-uploader.min.js");
+    Html.AddScriptParts(ResourceLocation.Footer, $"{MyVehicleDefaults.JsPath}/myvehicle.js");
+
+    //page class
+    Html.AppendPageCssClassParts("html-account-page");
+    Html.AppendPageCssClassParts("html-customer-info-page");
+
+}
+
+@section left
+    {
+    @await Component.InvokeAsync("CustomerNavigation", new { selectedTabId = MyAccountNavigationEnum.MyVehicle })
+}
+<div class="page account-page customer-info-page">
+    <div class="page-title">
+        <h1>@T("Account.MyAccount") - @T("MyTVO.MyVehicle")</h1>
+    </div>
+    <div class="page-body">
+        <div class="fieldset">
+            <div class="title">
+                <strong>@T("mytvo.myvehicle.page.title")</strong>
+            </div>
+            <h2 class="text-center">Do you own any other vehicle?</h2>
+            <div class="doc-container text-center mt-4 px-5">
+                <button type="button" class="addnewvehicle" data-bs-toggle="modal" data-bs-target="#addNewVehicleModal">
+                    + Add New Vehicle
+                </button>
+            </div>
+        </div>
+        <div id="list" class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="row align-items-center p-3">
+                            <div class="col-2">
+                                <img src="/Themes/Traction/Content/img/myTVO.svg" class="img-fluid rounded-circle" alt="">
+                            </div>
+                            <div class="col-3">
+                                <h3 class="card-title">MyTVO Insurance Sdn Bhd</h3>
+                                <h3>VA 121</h3>
+                                <p>M850i xDrive Coupe</p>
+                            </div>
+                            <div class="col-4">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <span>Next Service</span>
+                                        <span>01/07/2021</span>
+                                        <button type="button" class="button-1">View Appointment</button>
+                                    </div>
+                                    <div class="col-6">
+                                        <span>Insurance Renewal</span>
+                                        <span>01/07/2021</span>
+                                        <button type="button" class="button-1">View Document</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="button-2">Vehicle Details</button>
+                                <button type="button" class="button-2">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*MODAL*@
+<div class="modal fade account-page" id="addNewVehicleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header border-none">
+                <h5 class="modal-title modal-title-font">Add New Vehicle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <form action="" enctype="multipart/form-data">
+                        <div class="row mb-3 gx-3">
+                            <div class="col">
+                                <div class="input-images">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3 gx-3">
+                            <div class="col-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <label for="message-text" class="col-form-label">Vehicle No.</label>
+                                        <input type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="dropdown">
+                                            <label asp-for="VehicleType"></label>
+                                            <select asp-for="VehicleType" asp-items="Model.VehicleTypes"
+                                                    data-trigger="vehicleType-select"
+                                                    data-url="@(Url.RouteUrl($"{MyVehicleDefaults.GetBrandByVehicleType}"))"
+                                                    data-vehiclebrand="#@Html.IdFor(model => model.VehicleBrand)"
+                                                    data-loading="#vehicleBrands-loading-progress">
+                                                <option>Select vehicle type</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="dropdown">
+                                            <label asp-for="VehicleBrand"></label>
+                                            <select asp-for="VehicleBrand" asp-items="Model.VehicleBrands"
+                                                    data-trigger="vehicleBrand-select"
+                                                    data-url="@(Url.RouteUrl($"{MyVehicleDefaults.GetModelByVehicleBrand}"))"
+                                                    data-vehicletypeselected="#@Html.IdFor(model => model.VehicleType)  :selected"
+                                                    data-vehiclemodel="#@Html.IdFor(model => model.VehicleModel)"
+                                                    data-loading="#vehicleModels-loading-progress">
+                                                >
+                                                <option>Select vehicle brand</option>
+                                            </select>
+                                            <span id="vehicleBrands-loading-progress" style="display: none;" class="please-wait">@T("Common.Wait")</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3 gx-3">
+                            <div class="col-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="dropdown">
+                                            <label asp-for="VehicleModel"></label>
+                                            <select asp-for="VehicleModel" asp-items="Model.VehicleModels"
+                                                    data-trigger="vehicleModel-select"
+                                                    data-url="@(Url.RouteUrl($"{MyVehicleDefaults.GetSeriesByVehicleModel}"))"
+                                                    data-vehicletypeselected="#@Html.IdFor(model => model.VehicleType)  :selected"
+                                                    data-vehiclebrandselected="#@Html.IdFor(model => model.VehicleBrand) :selected"
+                                                    data-vehicleseries="#@Html.IdFor(model => model.VehicleSeries)"
+                                                    data-loading="#vehicleSerieses-loading-progress">
+
+                                                <option>Select vehicle model</option>
+                                            </select>
+                                            <span id="vehicleModels-loading-progress" style="display: none;" class="please-wait">@T("Common.Wait")</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="dropdown">
+                                            <label asp-for="VehicleSeries"></label>
+                                            <select asp-for="VehicleSeries" asp-items="Model.VehicleSerieses">
+                                                <option>Select vehicle series</option>
+                                            </select>
+                                            <span id="vehicleSerieses-loading-progress" style="display: none;" class="please-wait">@T("Common.Wait")</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3 gx-3">
+                            <div class="col-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <label for="message-text" class="col-form-label">Vehicle Capacity</label>
+                                        <input type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <label for="message-text" class="col-form-label">Year of Manufacture</label>
+                                        <input type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3 gx-3">
+                            <div class="col-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <label for="message-text" class="col-form-label">Engine No.</label>
+                                        <input type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <label for="message-text" class="col-form-label">Chassis No.</label>
+                                        <input type="text" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer border-none">
+                <button type="button" class="button-3" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="button-1">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*myTVO_VehicleInfo*@

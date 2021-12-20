@@ -1,0 +1,106 @@
+﻿@using Nop.Core.Domain.Seo
+@inject SeoSettings seoSettings
+@inject IStoreContext storeContext
+@inject ISettingService settingService
+
+@{
+    Layout = "_ColumnsOne";
+
+    //title
+    if (!string.IsNullOrEmpty(seoSettings.HomepageTitle))
+    {
+        Html.AddTitleParts(seoSettings.HomepageTitle);
+    }
+
+    //meta
+    if (!string.IsNullOrEmpty(seoSettings.HomepageDescription))
+    {
+        Html.AddMetaDescriptionParts(seoSettings.HomepageDescription);
+    }
+
+    //page class
+    Html.AppendPageCssClassParts("html-home-page");
+
+    var storeId = (await storeContext.GetCurrentStoreAsync()).Id;
+    var isHomePageQuickTabsEnabled = await settingService.GetSettingByKeyAsync("tractionthemesettings.enableproductgridstabsonhomepage", false, storeId, true);
+}
+
+@await Component.InvokeAsync("Widget", new { widgetZone = "home_page_search_widget" })
+
+<div class="page home-page">
+    <div class="page-body">
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomepageTop })
+        @await Component.InvokeAsync("TopicBlock", new { systemName = "HomepageText" })
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomepageBeforeCategories })
+        @await Component.InvokeAsync("HomepageCategories")
+
+        @{
+			var homePageProducts = await Component.InvokeAsync("HomepageProducts");
+			var homePageBestsellers = await Component.InvokeAsync("HomepageBestSellers");			
+			var homePageNewProducts = await Component.InvokeAsync("Widget", new { widgetZone = "home_page_new_products" });
+        }
+
+        @if (isHomePageQuickTabsEnabled)
+        {
+        <div id="homePageQuickTabs" class="productTabs">
+            <div class="productTabs-header">
+                <ul>
+                    @if (!String.IsNullOrEmpty(await homePageProducts.RenderHtmlContentAsync()))
+                    {
+                        <li><a href="#quickTab-homepage-products">@T("HomePage.Products")</a></li>
+                    }
+                    @if (!String.IsNullOrEmpty(await homePageBestsellers.RenderHtmlContentAsync()))
+                    {
+                    <li><a href="#quickTab-homepage-bestsellers">@T("Bestsellers")</a></li>
+                    }
+                    @if (!String.IsNullOrEmpty(await homePageNewProducts.RenderHtmlContentAsync()))
+                    {
+                    <li><a href="#quickTab-homepage-newproducts">@T("Products.NewProducts")</a></li>
+                    }
+                </ul>
+            </div>
+            <div class="productTabs-body">
+                @if (!String.IsNullOrEmpty(await homePageProducts.RenderHtmlContentAsync()))
+                {
+                <div id="quickTab-homepage-products">
+                    @homePageProducts
+                </div>
+                }
+                @if (!String.IsNullOrEmpty(await homePageBestsellers.RenderHtmlContentAsync()))
+                {
+                <div id="quickTab-homepage-bestsellers">
+                    @homePageBestsellers
+                </div>
+                }
+                @if (!String.IsNullOrEmpty(await homePageNewProducts.RenderHtmlContentAsync()))
+                {
+                <div id="quickTab-homepage-newproducts">
+                    @homePageNewProducts
+                </div>
+                }
+            </div>
+        </div>
+        <script type="text/javascript" asp-location="Footer">
+            jQuery(function ($) {
+                $("#homePageQuickTabs").tabs();
+            });
+        </script>
+        }
+        else
+        {
+        	@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomepageBeforeProducts })
+            @await Component.InvokeAsync("HomepageProducts")
+        	@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomepageBeforeBestSellers })
+        	@await Component.InvokeAsync("HomepageBestSellers")
+            @await Component.InvokeAsync("Widget", new { widgetZone = "home_page_new_products" })
+        }
+
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomepageBeforePoll })
+        @await Component.InvokeAsync("HomepagePolls")
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomepageBottom })
+        <div class="home-page-banner">
+            @await Component.InvokeAsync("Widget", new { widgetZone = "home_page_bottom_banner" })
+        </div>
+		@await Component.InvokeAsync("Widget", new { widgetZone = "home_page_manufacturers" })
+    </div>
+</div>
